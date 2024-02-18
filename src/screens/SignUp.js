@@ -51,6 +51,11 @@ export default function SignUp() {
     })
     const json = await response.json();
     console.log(json);
+    if (json.message) {
+      localStorage.token = json.token;
+    }
+    window.location.replace('/SignIn')
+
   };
 
   return (
