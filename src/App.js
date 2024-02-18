@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   return (
+    //Lets handle all navigation in app nav - we will not need to touch this file until we need to deal with protected routes, but we'll be able to prob do that in appnav
     <Router>
       <div className="">
         <AppNav />

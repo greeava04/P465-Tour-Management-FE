@@ -129,6 +129,7 @@ function AppBarComponent() {
               </Button>
             ))}
           </Box>
+          {/* This is dynamic - if the user is not logged it it will show, if they are then their account icon will come up */}
           {!isUserLoggedIn ? (
             <>
               <Link to="/signin" color="inherit">

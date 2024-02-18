@@ -6,6 +6,8 @@ import SignUp from './screens/SignUp';
 
 function AppNav() {
   return (
+    //we will need to create protected routes when we get authentication up
+    //so that users wont be able to go to authenticated screens unless they're authenticated
     <Routes>
     <Route path="/" element={<HomeScreen />} />
     <Route path="/SignIn" element={<SignIn />} />
