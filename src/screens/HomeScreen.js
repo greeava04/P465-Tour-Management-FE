@@ -1,37 +1,55 @@
-import React from 'react'
-<<<<<<< HEAD
+import React, { useEffect, useState, image } from 'react'
 import AppBarComponent from '../util/AppBarComponent'
-=======
-import { AppBar, Toolbar, Typography, Button, Container, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
->>>>>>> 9113b45e74e31cb31838e9fcfdab0611fe96f213
-
+import EZTravelLogo from '../images/EZTravelLogo.png'
 const HomeScreen = () => {
+  const [locations, setLocations] = useState([]);
+  const [userSelectedLocationsetUserSelectedLocation] = useState();
+
+  // useEffect(
+  //   () => {
+  //     fetch('http://localhost:3000/getRandPlace')
+  //     .then(response => response.json())
+  //     .then(data => setLocations(data))
+  //   }, []
+  // )
+
+
+
     return (
-        <div>
-<<<<<<< HEAD
+        <div class="container">
             <AppBarComponent />
-            <p>Home Screen</p>
+            <div class="sidebar">
+              <div class ="filters"></div>
+              <div class = "search"></div>
+            </div>
+            <div class="grid-container">
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+              </div>
+            </div>
         </div>
-=======
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            EzTravel
-          </Typography>
-          <Button color="inherit" component={Link} to="/SignIn">Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Container maxWidth="md" sx={{ mt: 2 }}>
-        <Typography variant="h4" gutterBottom>
-          Destination
-        </Typography>
-        <TextField label="Search" variant="outlined" fullWidth />
-      </Container>
-    </div>
->>>>>>> 9113b45e74e31cb31838e9fcfdab0611fe96f213
     )
 }
 
 export default HomeScreen
-

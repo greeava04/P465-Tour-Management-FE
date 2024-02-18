@@ -1,17 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Router, Routes, Route } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen';
+import SignIn from './screens/SignIn';
+import SignUp from './screens/SignUp';
 
 function AppNav() {
   return (
-    <div>
-    <nav>
-      <ul>
-        {/* <li><Link to="/HomeScreen">Home</Link></li> */}
-        <li><Link to="/SignIn">SignIn</Link></li>
-        <li><Link to="/SignUp">SignUp</Link></li>
-      </ul>
-    </nav>
-    </div>
+    <Routes>
+    <Route path="/" element={<HomeScreen />} />
+    <Route path="/SignIn" element={<SignIn />} />
+    <Route path="/SignUp" element={<SignUp />} />
+  </Routes>
   );
 }
 
