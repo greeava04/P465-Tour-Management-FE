@@ -31,15 +31,82 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    let login = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+    const response = await fetch("http://10.1.1.109:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(login)
+    })
+    const json = await response.json();
+    if (json.error) {
+      alert("Username/Password combo incorrect")
+    }
+    console.log(json)
+    if (json.message) {
+      localStorage.token = json.token;
+    }
+    window.location.reload();
   };
-
+  let user = {
+    "username": "",
+    "password": ""
+  }
+  const handleLogOut = () => {
+    // event.preventDefault();
+    localStorage.token = ""
+    window.location.reload();
+  }
+  const verify = async (token) => {
+    const response = await fetch("http://10.1.1.109:3000/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "token": token
+      })
+    });
+    let json = await response.json();
+    console.log(json)
+    user = json;
+  }
+  if (localStorage.token) {
+    verify(localStorage.token);
+    return(
+      <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          Logged in!
+          <Button onClick={handleLogOut}
+              type="logOut"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Log Out!
+            </Button>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+    )
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">

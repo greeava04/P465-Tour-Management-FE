@@ -31,13 +31,26 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const create = ({
       email: data.get('email'),
       password: data.get('password'),
+      username: data.get('username'),
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      phoneNum: data.get('phoneNum')
     });
+    const response = await fetch("http://10.1.1.109:3000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(create)
+    })
+    const json = await response.json();
+    console.log(json);
   };
 
   return (
@@ -88,6 +101,16 @@ export default function SignUp() {
                   id="username"
                   label="UserName"
                   name="username"
+                  autoComplete="Login username"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phoneNum"
+                  label="Phone Number"
+                  name="phoneNum"
                   autoComplete="Login username"
                 />
               </Grid>
