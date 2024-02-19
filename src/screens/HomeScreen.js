@@ -1,8 +1,6 @@
 import React, { useEffect, useState, image } from 'react'
 import AppBarComponent from '../util/AppBarComponent'
 import EZTravelLogo from '../images/EZTravelLogo.png'
-import React from 'react'
-import AppBarComponent from '../util/AppBarComponent'
 
 const HomeScreen = () => {
   const [locations, setLocations] = useState([]);
@@ -23,7 +21,7 @@ const HomeScreen = () => {
         <div class="container">
             <AppBarComponent />
             <div class="sidebar">
-      {/* We should make components for filter and searc like appbarcomponent */}
+      {/* We should make components for filter and search like appbarcomponent */}
               <div class ="filters"></div>
               <div class = "search"></div>
             </div>

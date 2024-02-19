@@ -41,7 +41,7 @@ function AppBarComponent() {
 
   // Color codes: #F22E62 #2484BF #A2F2F2 #F2845C #F25C5C
   return (
-    <AppBar position="static" style={{ backgroundColor: '#2484BF' }}>
+    <AppBar position="static" style={{ backgroundColor: '#F2845C' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box component="img" src={EZTravelLogo} alt="EZTravel Logo" sx={{ display: { xs: 'none', md: 'flex' }, height: 40, mr: 1 }} />
@@ -131,14 +131,14 @@ function AppBarComponent() {
           </Box>
           {/* This is dynamic - if the user is not logged it it will show, if they are then their account icon will come up */}
           {!isUserLoggedIn ? (
-            <>
-              <Link to="/signin" color="inherit">
-                Sign In/    
+            <Typography>
+              <Link to="/signin" style={{ color: 'white', textDecoration: 'none' }}>
+                SIGN IN/              
+                </Link>
+              <Link to="/signup" style={{color: "white", textDecoration: "none"}}>
+                SIGN UP
               </Link>
-              <Link to="/signup" color="inherit">
-                Sign Up
-              </Link>
-            </>
+            </Typography>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
