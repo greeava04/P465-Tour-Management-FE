@@ -1,3 +1,6 @@
+/* Color codes: #F22E62 #2484BF #A2F2F2 #F2845C #F25C5C */
+
+
 .App {
   text-align: center;
   display: grid;
@@ -19,11 +22,22 @@
 
 .grid-item {
   padding: 10px; /* Padding inside each grid item */
-  border: 1px solid #ccc; /* Optional: adds a border around each grid item */
+  border: 1px solid black; /* Optional: adds a border around each grid item */
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  
+}
+
+.grid-text{
+  background-color: #c3f3f3;
+  height: 150px;
+  border-radius:10px;
+  padding: 10px;
+  width:100%;
+  border: 1px solid #ccc;
 }
 
 .grid-item img {
