@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import SignInWithGoogleLogo from '../images/SIgnInWithGoogle.png'
+import { SignInButton } from './SignIn'
 
 function Copyright(props) {
   return (
@@ -162,6 +164,9 @@ export default function SignUp() {
                 </Link>
               </Grid>
             </Grid>
+            <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px"}}>
+              <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton>
+            </Box>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
