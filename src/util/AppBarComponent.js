@@ -41,7 +41,7 @@ function AppBarComponent() {
 
   // Color codes: #F22E62 #2484BF #A2F2F2 #F2845C #F25C5C
   return (
-    <AppBar position="static" style={{ backgroundColor: '#F2845C' }}>
+    <AppBar position="static" style={{ backgroundColor: '#2484BF' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box component="img" src={EZTravelLogo} alt="EZTravel Logo" sx={{ display: { xs: 'none', md: 'flex' }, height: 40, mr: 1 }} />

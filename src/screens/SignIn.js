@@ -120,7 +120,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#FEA261' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#2484BF' }}>
             <LockOutlinedIcon style={{ color: 'white' }} /> {/* Change color here */}
           </Avatar>
 
@@ -156,13 +156,14 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, backgroundColor: '#2484BF' }}
+              style={{ backgroundColor: '#2484BF' }}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/ForgotPassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

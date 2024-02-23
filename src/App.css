@@ -13,6 +13,8 @@
   /* Additional styling for the sidebar */
 }
 
+
+/* Grid styling, Home screen */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
@@ -50,3 +52,24 @@
 .grid-item h3, .grid-item p {
   margin: 5px 0; /* Adjusts spacing around the text */
 }
+
+/* Search bar styling */
+.search-bar {
+  /* Photo by <a href="https://unsplash.com/@caminouflet?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Camille Minouflet</a> on <a href="https://unsplash.com/photos/photo-of-seashore-d7M5Xramf8g?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> */
+
+  display: block;
+  align-items: center;
+  width: 100%;
+  padding: 100px 4px;
+  margin: 0 10px;
+}
+.search{
+
+  background-image:url(./images/background-HS.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  width: 100%;
+
+}
+

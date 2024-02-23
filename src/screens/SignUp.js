@@ -72,7 +72,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#FEA261' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#2484BF' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -154,12 +154,13 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              style={{ backgroundColor: '#2484BF' }}
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/SignIn" variant="body2">
+                <Link href="/SignIn" variant="body2" style={{ color: '#2484BF'}}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
