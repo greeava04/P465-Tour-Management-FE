@@ -15,6 +15,7 @@ function AppNav() {
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
     </Routes>
+
   );
 }
 

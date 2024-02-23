@@ -13,8 +13,8 @@
   /* Additional styling for the sidebar */
 }
 
-
 /* Grid styling, Home screen */
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
@@ -24,12 +24,14 @@
 
 .grid-item {
   padding: 10px; /* Padding inside each grid item */
+
   border: 1px solid black; /* Optional: adds a border around each grid item */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+
   
 }
 
