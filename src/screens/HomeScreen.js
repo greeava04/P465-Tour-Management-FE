@@ -3,6 +3,7 @@ import AppBarComponent from '../util/AppBarComponent'
 import EZTravelLogo from '../images/EZTravelLogo.png'
 import SearchComponent from '../util/SearchComponent'
 
+
 const HomeScreen = () => {
   const [locations, setLocations] = useState([]);
   const [userSelectedLocationsetUserSelectedLocation] = useState();
@@ -27,6 +28,7 @@ const HomeScreen = () => {
               <div class = "search">
                 <SearchComponent />
               </div>
+
             </div>
       {/* We will need to make this dynamic, taking from the locations array to only have a map that it populates */}
             <div class="grid-container">

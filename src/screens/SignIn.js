@@ -39,7 +39,7 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    const response = await fetch("http://10.1.1.109:3000/login", {
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -66,7 +66,7 @@ export default function SignIn() {
     window.location.reload();
   }
   const verify = async (token) => {
-    const response = await fetch("http://10.1.1.109:3000/verify", {
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
