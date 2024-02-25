@@ -102,6 +102,16 @@ export default function SignIn() {
             >
               Log Out!
             </Button>
+            <Button onClick={() =>{
+              window.location.href = '/'
+            }}
+              type="home"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Home
+            </Button>
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>

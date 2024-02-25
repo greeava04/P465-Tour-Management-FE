@@ -22,7 +22,33 @@ function AppBarComponent() {
   const pages = ['Hotels', 'Flights', 'Restaurants', 'Activities', 'Recommendations', 'Itinerary'];
   const settings = ['Profile', 'Account', 'My Itinerary', 'Logout'];
   const navigate = useNavigate();
-  const isUserLoggedIn = false; // Replace with actual authentication status
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    if (localStorage.token && !user) {
+      fetch("http://owenhar1.asuscomm.com:3000/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "token": localStorage.token
+        })
+      }).then((res) => res.json()).then((data) => {
+        console.log(data)
+        if (data.status == "error") {
+          setUser(null)
+          localStorage.token = ""
+        } else {
+          setUser(data)
+          console.log(data)
+        }
+      })
+      
+    } else {
+      setUser(null);
+    }
+  }, [])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +61,12 @@ function AppBarComponent() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (event) => {
+    if(event.setting == "Logout") {
+      localStorage.token = "";
+      setUser(null);
+    }
+    console.log(event)
     setAnchorElUser(null);
   };
 
@@ -130,7 +161,7 @@ function AppBarComponent() {
             ))}
           </Box>
           {/* This is dynamic - if the user is not logged it it will show, if they are then their account icon will come up */}
-          {!isUserLoggedIn ? (
+          {!user ? (
             <Typography>
               <Link to="/signin" style={{ color: 'white', textDecoration: 'none' }}>
                 SIGN IN/              
@@ -140,7 +171,10 @@ function AppBarComponent() {
               </Link>
             </Typography>
           ) : (
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0, flexFlow: "row nowrap", display: "flex", "align-items": "center", gap: "5px"}}>
+              <Typography>
+                {user.email}
+              </Typography>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -163,7 +197,7 @@ function AppBarComponent() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem key={setting} onClick={(e) => handleCloseUserMenu({setting})}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
