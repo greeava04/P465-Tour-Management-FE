@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import SignInWithGoogleLogo  from '../images/SIgnInWithGoogle.png'
 
-function Copyright(props) {
+export function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -80,20 +81,20 @@ export default function SignIn() {
   }
   if (localStorage.token) {
     verify(localStorage.token);
-    return(
+    return (
       <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          Logged in!
-          <Button onClick={handleLogOut}
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            Logged in!
+            <Button onClick={handleLogOut}
               type="logOut"
               fullWidth
               variant="contained"
@@ -101,10 +102,10 @@ export default function SignIn() {
             >
               Log Out!
             </Button>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </ThemeProvider>
     )
   }
   return (
@@ -119,7 +120,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#FEA261' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#2484BF' }}>
             <LockOutlinedIcon style={{ color: 'white' }} /> {/* Change color here */}
           </Avatar>
 
@@ -155,13 +156,14 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, backgroundColor: '#2484BF' }}
+              style={{ backgroundColor: '#2484BF' }}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/ForgotPassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -171,10 +173,22 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+            <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px"}}>
+              <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton>
+            </Box>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
+}
+
+
+export function SignInButton(props) {
+  return (
+    <a href={props.link}>
+      <img src={props.image} alt="Sign in with google button" />
+    </a>
+  )
 }

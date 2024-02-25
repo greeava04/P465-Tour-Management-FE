@@ -1,3 +1,6 @@
+/* Color codes: #F22E62 #2484BF #A2F2F2 #F2845C #F25C5C */
+
+
 .App {
   text-align: center;
   display: grid;
@@ -10,6 +13,8 @@
   /* Additional styling for the sidebar */
 }
 
+/* Grid styling, Home screen */
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
@@ -19,11 +24,24 @@
 
 .grid-item {
   padding: 10px; /* Padding inside each grid item */
-  border: 1px solid #ccc; /* Optional: adds a border around each grid item */
+
+  border: 1px solid black; /* Optional: adds a border around each grid item */
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+
+  
+}
+
+.grid-text{
+  background-color: #c3f3f3;
+  height: 150px;
+  border-radius:10px;
+  padding: 10px;
+  width:100%;
+  border: 1px solid #ccc;
 }
 
 .grid-item img {
@@ -36,3 +54,24 @@
 .grid-item h3, .grid-item p {
   margin: 5px 0; /* Adjusts spacing around the text */
 }
+
+/* Search bar styling */
+.search-bar {
+  /* Photo by <a href="https://unsplash.com/@caminouflet?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Camille Minouflet</a> on <a href="https://unsplash.com/photos/photo-of-seashore-d7M5Xramf8g?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> */
+
+  display: block;
+  align-items: center;
+  width: 100%;
+  padding: 100px 4px;
+  margin: 0 10px;
+}
+.search{
+
+  background-image:url(./images/background-HS.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  width: 100%;
+
+}
+

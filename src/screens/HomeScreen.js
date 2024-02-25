@@ -1,6 +1,8 @@
 import React, { useEffect, useState, image } from 'react'
 import AppBarComponent from '../util/AppBarComponent'
 import EZTravelLogo from '../images/EZTravelLogo.png'
+import SearchComponent from '../util/SearchComponent'
+
 
 const HomeScreen = () => {
   const [locations, setLocations] = useState([]);
@@ -23,33 +25,60 @@ const HomeScreen = () => {
             <div class="sidebar">
       {/* We should make components for filter and search like appbarcomponent */}
               <div class ="filters"></div>
-              <div class = "search"></div>
+              <div class = "search">
+                <SearchComponent />
+              </div>
+
             </div>
       {/* We will need to make this dynamic, taking from the locations array to only have a map that it populates */}
             <div class="grid-container">
               <div class="grid-item">
                 <img src={EZTravelLogo} alt="Location Image" />
+                 <div class="grid-text">
                 <h3>Location Name</h3>
                 <p>Price: $XX</p>
                 <p>Rating: ★★★★☆</p>
+                </div>
               </div>
               <div class="grid-item">
                 <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
                 <h3>Location Name</h3>
                 <p>Price: $XX</p>
                 <p>Rating: ★★★★☆</p>
+                </div>
               </div>
               <div class="grid-item">
                 <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
                 <h3>Location Name</h3>
                 <p>Price: $XX</p>
                 <p>Rating: ★★★★☆</p>
+                </div>
               </div>
               <div class="grid-item">
                 <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
                 <h3>Location Name</h3>
                 <p>Price: $XX</p>
                 <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
               </div>
             </div>
         </div>
