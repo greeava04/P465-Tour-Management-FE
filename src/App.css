@@ -1,38 +1,77 @@
+/* Color codes: #F22E62 #2484BF #A2F2F2 #F2845C #F25C5C */
+
+
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 4fr; /* 1/5th for sidebar, 4/5ths for content */
+  gap: 10px; /* Adjusts the space between the sidebar and the grid container */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar {
+  padding: 10px; /* Adjust as needed */
+  /* Additional styling for the sidebar */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Grid styling, Home screen */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
+  gap: 10px; /* Space between grid items */
+  padding: 10px; /* Padding around the entire grid container */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.grid-item {
+  padding: 10px; /* Padding inside each grid item */
+
+  border: 1px solid black; /* Optional: adds a border around each grid item */
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+
+  
 }
 
-.App-link {
-  color: #61dafb;
+.grid-text{
+  background-color: #c3f3f3;
+  height: 150px;
+  border-radius:10px;
+  padding: 10px;
+  width:100%;
+  border: 1px solid #ccc;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.grid-item img {
+  width: 100%; /* Makes the image fill the container */
+  height: auto; /* Keeps the image aspect ratio */
+  margin-bottom: 10px; /* Space between the image and the text below */
 }
+
+/* Additional styling for the text inside grid items */
+.grid-item h3, .grid-item p {
+  margin: 5px 0; /* Adjusts spacing around the text */
+}
+
+/* Search bar styling */
+.search-bar {
+  /* Photo by <a href="https://unsplash.com/@caminouflet?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Camille Minouflet</a> on <a href="https://unsplash.com/photos/photo-of-seashore-d7M5Xramf8g?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> */
+
+  display: block;
+  align-items: center;
+  width: 100%;
+  padding: 100px 4px;
+  margin: 0 10px;
+}
+.search{
+
+  background-image:url(./images/background-HS.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  width: 100%;
+
+}
+

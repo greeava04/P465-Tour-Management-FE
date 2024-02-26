@@ -1,3 +1,9 @@
+# When you first clone the repo, make sure you cd to the root and run
+
+### `npm install`
+
+So that you can start the project
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +74,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### dependencies:
+1. npm install react-router-dom
+2. npm install @mui/icons-material
+
+

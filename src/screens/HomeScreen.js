@@ -1,14 +1,88 @@
-import React from 'react'
+import React, { useEffect, useState, image } from 'react'
 import AppBarComponent from '../util/AppBarComponent'
+import EZTravelLogo from '../images/EZTravelLogo.png'
+import SearchComponent from '../util/SearchComponent'
+
 
 const HomeScreen = () => {
+  const [locations, setLocations] = useState([]);
+  const [userSelectedLocationsetUserSelectedLocation] = useState();
+
+  //We need to map each location to a grid item, rn it's hard coded, this is just to get us ready
+  // useEffect(
+  //   () => {
+  //     fetch('http://localhost:3000/getRandPlace')
+  //     .then(response => response.json())
+  //     .then(data => setLocations(data))
+  //   }, []
+  // )
+
+
+
     return (
-        <div>
+        <div class="container">
             <AppBarComponent />
-            <p>Home Screen</p>
+            <div class="sidebar">
+      {/* We should make components for filter and search like appbarcomponent */}
+              <div class ="filters"></div>
+              <div class = "search">
+                <SearchComponent />
+              </div>
+
+            </div>
+      {/* We will need to make this dynamic, taking from the locations array to only have a map that it populates */}
+            <div class="grid-container">
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                 <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+              <div class="grid-item">
+                <img src={EZTravelLogo} alt="Location Image" />
+                <div class="grid-text">
+                <h3>Location Name</h3>
+                <p>Price: $XX</p>
+                <p>Rating: ★★★★☆</p>
+                </div>
+              </div>
+            </div>
         </div>
     )
 }
 
 export default HomeScreen
-
