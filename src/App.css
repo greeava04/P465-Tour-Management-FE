@@ -66,8 +66,11 @@
   margin: 0 10px;
 }
 .search{
-
-  background-image:url(./images/background-HS.jpg);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./images/background-HS.jpg);
   background-size: cover;
   background-position: center;
   height: 300px;
