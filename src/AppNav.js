@@ -4,6 +4,10 @@ import HomeScreen from './screens/HomeScreen';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import ForgotPassword from './screens/ForgotPassword'
+import Flights from './screens/Flights'
+import Hotels from './screens/Hotels'
+import Restaurants from './screens/Restaurants'
+import Activities from './screens/Activities'
 
 function AppNav() {
   return (
@@ -14,6 +18,10 @@ function AppNav() {
       <Route path="/SignIn" element={<SignIn />} />
       <Route path="/SignUp" element={<SignUp />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      <Route path="/Flights" element={<Flights />} />
+      <Route path="/Hotels" element={<Hotels />} />
+      <Route path="/Restaurants" element={<Restaurants />} />
+      <Route path="/Activities" element={<Activities />} />
     </Routes>
 
   );

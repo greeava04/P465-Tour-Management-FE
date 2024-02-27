@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import EZTravelLogo from '../images/EZTravelLogo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 
 function AppBarComponent() {
@@ -22,6 +22,7 @@ function AppBarComponent() {
   const pages = ['Hotels', 'Flights', 'Restaurants', 'Activities', 'Recommendations', 'Itinerary'];
   const settings = ['Profile', 'Account', 'My Itinerary', 'Logout'];
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
@@ -154,9 +155,19 @@ function AppBarComponent() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                  backgroundColor: location.pathname === `/${page}` ? '#65A8D2' : 'transparent', // Use a lighter color for the active tab
+                  '&:hover': {
+                    backgroundColor: location.pathname === `/${page}` ? '#65A8D2' : '', // Change hover color accordingly
+                  },
+                }}
               >
-                {page}
+                <Link to={`/${page}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>
