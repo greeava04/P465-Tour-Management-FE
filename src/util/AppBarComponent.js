@@ -44,7 +44,7 @@ function AppBarComponent() {
           console.log(data)
         }
       })
-      
+
     } else {
       setUser(null);
     }
@@ -62,7 +62,7 @@ function AppBarComponent() {
   };
 
   const handleCloseUserMenu = (event) => {
-    if(event.setting == "Logout") {
+    if (event.setting == "Logout") {
       localStorage.token = "";
       setUser(null);
     }
@@ -162,16 +162,16 @@ function AppBarComponent() {
           </Box>
           {/* This is dynamic - if the user is not logged it it will show, if they are then their account icon will come up */}
           {!user ? (
-            <Typography>
-              <Link to="/signin" style={{ color: 'white', textDecoration: 'none' }}>
-                SIGN IN/              
-                </Link>
-              <Link to="/signup" style={{color: "white", textDecoration: "none"}}>
+            <Box>
+              <Button color="inherit" component={Link} to="/signin">
+                SIGN IN
+              </Button>
+              <Button color="inherit" component={Link} to="/signup">
                 SIGN UP
-              </Link>
-            </Typography>
+              </Button>
+            </Box>
           ) : (
-            <Box sx={{ flexGrow: 0, flexFlow: "row nowrap", display: "flex", "align-items": "center", gap: "5px"}}>
+            <Box sx={{ flexGrow: 0, flexFlow: "row nowrap", display: "flex", "align-items": "center", gap: "5px" }}>
               <Typography>
                 {user.email}
               </Typography>
@@ -197,7 +197,7 @@ function AppBarComponent() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={(e) => handleCloseUserMenu({setting})}>
+                  <MenuItem key={setting} onClick={(e) => handleCloseUserMenu({ setting })}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
