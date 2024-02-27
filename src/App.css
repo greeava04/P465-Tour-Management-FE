@@ -16,15 +16,17 @@
 /* Grid styling, Home screen */
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
-  gap: 10px; /* Space between grid items */
-  padding: 10px; /* Padding around the entire grid container */
+  display: flex;
+  flex-wrap: row;
+  justify-content: center;
+  
+  gap: 10px;
+  padding: 10px;
+
 }
 
 .grid-item {
   padding: 10px; /* Padding inside each grid item */
-
   border: 1px solid black; /* Optional: adds a border around each grid item */
   border-radius: 10px;
   display: flex;
