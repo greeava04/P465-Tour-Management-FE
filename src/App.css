@@ -26,30 +26,32 @@
 
 }
 
+/* Grid item styling */
 .grid-item {
   border: 1px solid black;
-  padding: 10px; /* Padding inside each grid item */
- /* Optional: adds a border around each grid item */
+  padding: 10px; 
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  position:relative;
-
+  position: relative;
 }
 
-.grid-text{
+/* Grid text styling */
+.grid-text {
   position: absolute;
-  bottom: 0;
-  left:0;
+  bottom: 0; 
+  left: 0; 
   background-color: #2484bfb9;
   height: 40%;
-  border-radius:10px;
+  border-radius: 0 0 10px 10px; 
   padding: 10px;
-  width: 90%;
+  width: 100%;
+  box-sizing: border-box; 
   border: 1px solid #ccc;
 }
+
 
 .grid-item img {
   width: 100%; /* Makes the image fill the container */
