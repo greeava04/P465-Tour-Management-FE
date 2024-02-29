@@ -8,6 +8,7 @@ import Flights from './screens/Flights'
 import Hotels from './screens/Hotels'
 import Restaurants from './screens/Restaurants'
 import Activities from './screens/Activities'
+import Itinerary from './screens/Itinerary';
 
 function AppNav() {
   return (
@@ -22,6 +23,7 @@ function AppNav() {
       <Route path="/Hotels" element={<Hotels />} />
       <Route path="/Restaurants" element={<Restaurants />} />
       <Route path="/Activities" element={<Activities />} />
+      <Route path="/Itinerary" element={<Itinerary />}/>
     </Routes>
 
   );

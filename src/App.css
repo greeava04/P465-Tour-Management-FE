@@ -13,49 +13,74 @@
   /* Additional styling for the sidebar */
 }
 
-/* Grid styling, Home screen */
+
+
+/* HOME SCREEN STYLING */
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 columns */
-  gap: 10px; /* Space between grid items */
-  padding: 10px; /* Padding around the entire grid container */
+  display: flex;
+  flex-wrap: row;
+  justify-content: center;
+  height: 300px;
+  gap: 10px;
+  padding: 10px;
+  
+
 }
 
+/* Location tiles styling */
 .grid-item {
-  padding: 10px; /* Padding inside each grid item */
-
-  border: 1px solid black; /* Optional: adds a border around each grid item */
+  border: 1px solid black;
+  padding: 10px; 
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-  
+  position: relative;
 }
 
-.grid-text{
-  background-color: #c3f3f3;
-  height: 150px;
-  border-radius:10px;
+
+.grid-text {
+  position: absolute;
+  bottom: 0; 
+  left: 0; 
+  background-color: rgba(245, 245, 245, 0.6);
+  height: 40%;
+  border-radius: 0 0 10px 10px; 
   padding: 10px;
-  width:100%;
+  width: 100%;
+  box-sizing: border-box; 
   border: 1px solid #ccc;
 }
+.grid-favorite-btn {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 24px;
+  color: transparent; 
+  background-size: contain; 
+  width: 30px; 
+  height: 30px; 
+  transition: all 0.3s ease; 
+}
+
 
 .grid-item img {
-  width: 100%; /* Makes the image fill the container */
-  height: auto; /* Keeps the image aspect ratio */
-  margin-bottom: 10px; /* Space between the image and the text below */
+  width: 100%; 
+  height: auto;
+  margin-bottom: 10px; 
 }
 
-/* Additional styling for the text inside grid items */
+
 .grid-item h3, .grid-item p {
-  margin: 5px 0; /* Adjusts spacing around the text */
+  margin: 5px 0; 
 }
 
-/* Search bar styling */
+/* Search Styling  */
 .search-bar {
   /* Photo by <a href="https://unsplash.com/@caminouflet?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Camille Minouflet</a> on <a href="https://unsplash.com/photos/photo-of-seashore-d7M5Xramf8g?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a> */
 
@@ -77,4 +102,50 @@
   width: 100%;
 
 }
+/* Overlay Styling */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
 
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.favorite-btn {
+  position:absolute;
+  bottom: 0;
+  right: 10px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 24px; /* Adjust size as needed */
+  color: transparent; /* Make the default state transparent */
+  background-size: contain; /* Adjust as needed */
+  width: 30px; /* Adjust as needed */
+  height: 30px; /* Adjust as needed */
+  transition: all 0.3s ease; /* Smooth transition for color change */
+}
