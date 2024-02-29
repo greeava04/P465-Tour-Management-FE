@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import EZTravelLogo from '../images/EZTravelLogo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 
 function AppBarComponent() {
@@ -22,7 +22,34 @@ function AppBarComponent() {
   const pages = ['Hotels', 'Flights', 'Restaurants', 'Activities', 'Recommendations', 'Itinerary'];
   const settings = ['Profile', 'Account', 'My Itinerary', 'Logout'];
   const navigate = useNavigate();
-  const isUserLoggedIn = false; // Replace with actual authentication status
+  const location = useLocation();
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    if (localStorage.token && !user) {
+      fetch("http://owenhar1.asuscomm.com:3000/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "token": localStorage.token
+        })
+      }).then((res) => res.json()).then((data) => {
+        console.log(data)
+        if (data.status == "error") {
+          setUser(null)
+          localStorage.token = ""
+        } else {
+          setUser(data)
+          console.log(data)
+        }
+      })
+
+    } else {
+      setUser(null);
+    }
+  }, [])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +62,12 @@ function AppBarComponent() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (event) => {
+    if (event.setting == "Logout") {
+      localStorage.token = "";
+      setUser(null);
+    }
+    console.log(event)
     setAnchorElUser(null);
   };
 
@@ -123,24 +155,37 @@ function AppBarComponent() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                  backgroundColor: location.pathname === `/${page}` ? '#65A8D2' : 'transparent', // Use a lighter color for the active tab
+                  '&:hover': {
+                    backgroundColor: location.pathname === `/${page}` ? '#65A8D2' : '', // Change hover color accordingly
+                  },
+                }}
               >
-                {page}
+                <Link to={`/${page}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>
           {/* This is dynamic - if the user is not logged it it will show, if they are then their account icon will come up */}
-          {!isUserLoggedIn ? (
-            <Typography>
-              <Link to="/signin" style={{ color: 'white', textDecoration: 'none' }}>
-                SIGN IN/              
-                </Link>
-              <Link to="/signup" style={{color: "white", textDecoration: "none"}}>
+          {!user ? (
+            <Box>
+              <Button color="inherit" component={Link} to="/signin">
+                SIGN IN
+              </Button>
+              <Button color="inherit" component={Link} to="/signup">
                 SIGN UP
-              </Link>
-            </Typography>
+              </Button>
+            </Box>
           ) : (
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0, flexFlow: "row nowrap", display: "flex", "align-items": "center", gap: "5px" }}>
+              <Typography>
+                {user.email}
+              </Typography>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -163,7 +208,7 @@ function AppBarComponent() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem key={setting} onClick={(e) => handleCloseUserMenu({ setting })}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}

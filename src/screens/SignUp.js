@@ -14,17 +14,22 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignInWithGoogleLogo from '../images/SIgnInWithGoogle.png'
 import { SignInButton } from './SignIn'
+import { dividerClasses } from '@mui/material';
+import LoginNavComponent from '../util/LoginNavComponent';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        EzTravel
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <div>
+      <LoginNavComponent />
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://mui.com/">
+          EzTravel
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    </div>
   );
 }
 
@@ -160,12 +165,12 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="/SignIn" variant="body2" style={{ color: '#2484BF'}}>
+                <Link href="/SignIn" variant="body2" style={{ color: '#2484BF' }}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
-            <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px"}}>
+            <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px" }}>
               <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton>
             </Box>
           </Box>

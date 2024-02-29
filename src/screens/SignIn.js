@@ -12,18 +12,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignInWithGoogleLogo  from '../images/SIgnInWithGoogle.png'
+import SignInWithGoogleLogo from '../images/SIgnInWithGoogle.png'
+import LoginNavComponent from '../util/LoginNavComponent';
 
 export function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        EzTravel
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <div>
+      <LoginNavComponent />
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://mui.com/">
+          EzTravel
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    </div>
   );
 }
 
@@ -102,6 +106,16 @@ export default function SignIn() {
             >
               Log Out!
             </Button>
+            <Button onClick={() => {
+              window.location.href = '/'
+            }}
+              type="home"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Home
+            </Button>
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
@@ -173,7 +187,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
-            <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px"}}>
+            <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px" }}>
               <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton>
             </Box>
           </Box>

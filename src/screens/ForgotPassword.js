@@ -14,14 +14,137 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SignInWithGoogleLogo from '../images/SIgnInWithGoogle.png'
 import { Copyright } from './SignIn'
+import { Code } from '@mui/icons-material';
 
 const defaultTheme = createTheme();
 
 export default function ForgotPassword() {
-    const handleSubmit = async (event) => {
+
+    const [resetState, setResetState] = React.useState(null);
+    const handleEmailSubmit = async (event) => {
         event.preventDefault();
-        console.log("email submitted")
+        const data = new FormData(event.currentTarget);
+        const info = {
+            "email" : data.get('email')
+        }
+        console.log("email submitted", info)
+        setResetState("code")
     };
+    const handleCodeSubmit = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const info = {
+            "code" : data.get('code')
+        }
+        console.log("code submitted", info)
+        setResetState("password")
+    };
+    const handlePasswordSubmit = async (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const info = {
+            "password" : data.get('password')
+        }
+        console.log("new password submitted", info)
+        setResetState("done")
+    };
+    const EmailForm = () => {
+        return (
+            <Box component="form" noValidate onSubmit={handleEmailSubmit} sx={{ mt: 3 }}>
+                <TextField
+                    autoComplete="email"
+                    name="email"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Account Email"
+                    autoFocus
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    Send-Email
+                </Button>
+            </Box>
+        )
+    }
+
+    const CodeScreen = () => {
+        return (
+            <Box component="form" noValidate onSubmit={handleCodeSubmit} sx={{ mt: 3 }}>
+                <Typography>
+                    Please the code sent to your email:
+                </Typography>
+                <TextField
+                    autoComplete=""
+                    name="code"
+                    required
+                    fullWidth
+                    id="code"
+                    label="Code"
+                    autoFocus
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    Verify Code
+                </Button>
+            </Box>
+        )
+    }
+
+    const NewPassword = () => {
+        return (
+            <Box component="form" noValidate onSubmit={handlePasswordSubmit} sx={{ mt: 3 }}>
+                <Typography>
+                    Please enter your new password:
+                </Typography>
+                <TextField
+                    autoComplete="password"
+                    name="password"
+                    required
+                    fullWidth
+                    id="password"
+                    label="New Password"
+                    autoFocus
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                >
+                    Verify Code
+                </Button>
+            </Box>
+        )
+    }
+
+    const Done = () => {
+        return (
+            <Box sx={{ mt: 3}}>
+                <Typography>
+                    Password Sucessfully Reset
+                </Typography>
+                <Button href="/SignIn" fullWidth variant="contained">
+                    Login
+                </Button>
+            </Box>
+        )
+    }
+
+    let toRender = <EmailForm></EmailForm>;
+
+    if (resetState == "code") toRender = <CodeScreen></CodeScreen>
+    else if (resetState == "password") toRender = <NewPassword></NewPassword>
+    else if (resetState == "done") toRender = <Done></Done>
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -29,25 +152,7 @@ export default function ForgotPassword() {
                     <Typography component="h1" variant="h4" style={{ "textAlign": "center" }}>
                         Forgot Password
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <TextField
-                            autoComplete="email"
-                            name="email"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Account Email"
-                            autoFocus
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Send-Email
-                        </Button>
-                    </Box>
+                    {toRender}
                     <Copyright sx={{ mt: 5 }} />
                 </Box>
             </Container>
@@ -55,3 +160,4 @@ export default function ForgotPassword() {
     );
 
 }
+
