@@ -21,12 +21,15 @@ const defaultTheme = createTheme();
 export default function ForgotPassword() {
 
     const [resetState, setResetState] = React.useState(null);
+    const []
     const handleEmailSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const info = {
             "email" : data.get('email')
         }
+
+        // Expects email in json body
         console.log("email submitted", info)
         setResetState("code")
     };
@@ -45,6 +48,7 @@ export default function ForgotPassword() {
         const info = {
             "password" : data.get('password')
         }
+        // email, otp, newPassword
         console.log("new password submitted", info)
         setResetState("done")
     };
