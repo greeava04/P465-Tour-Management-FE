@@ -52,7 +52,7 @@ export default function SignUp() {
       lastName: data.get('lastName'),
       phoneNum: data.get('phoneNum')
     });
-    const response = await fetch("http://localhost:3000/register", {
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

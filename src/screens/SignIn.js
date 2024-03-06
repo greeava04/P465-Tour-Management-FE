@@ -56,7 +56,7 @@ export default function SignIn() {
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
     const otp = formJson.otp;
-    const response = await fetch("http://localhost:3000/verifyotp", {
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/verifyotp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -82,7 +82,7 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -95,7 +95,7 @@ export default function SignIn() {
       alert("Username/Password combo incorrect")
     }
     if (json.message) {
-      const response = await fetch("http://localhost:3000/sendotp", {
+      const response = await fetch("http://owenhar1.asuscomm.com:3000/sendotp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -119,7 +119,7 @@ export default function SignIn() {
     window.location.reload();
   }
   const verify = async (token) => {
-    const response = await fetch("http://localhost:3000/verify", {
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
