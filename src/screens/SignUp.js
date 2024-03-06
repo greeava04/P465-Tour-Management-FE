@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignInWithGoogleLogo from '../images/SIgnInWithGoogle.png'
-import { SignInButton } from './SignIn'
-import { dividerClasses } from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
+import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
 import LoginNavComponent from '../util/LoginNavComponent';
 
 function Copyright(props) {
@@ -38,6 +38,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const handleGoogleOAuthSubmit = async (event) => {
+    console.log('Sign Up with google')
+  } 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -170,8 +173,16 @@ export default function SignUp() {
                 </Link>
               </Grid>
             </Grid>
+            <div style={{ margin: '20px 0' }}>
+              <Divider>
+                <Chip label="OR" size="small" />
+              </Divider>
+            </div>
             <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px" }}>
-              <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton>
+              {/* <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton> */}
+              <Button onClick={handleGoogleOAuthSubmit} variant="outlined" startIcon={<GoogleIcon />}>
+                Sign Up with google
+              </Button>
             </Box>
           </Box>
         </Box>
