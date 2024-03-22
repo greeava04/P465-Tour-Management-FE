@@ -5,7 +5,7 @@ import SearchComponent from '../util/SearchComponent';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TileComponent from '../util/TileComponent';
-
+import Button from '@mui/material/Button';
 
 const HomeScreen = () => {
   const [locations, setLocations] = useState([
@@ -16,10 +16,13 @@ const HomeScreen = () => {
 
   const [selectedLocation, setSelectedLocation] = useState(null);
 
+  const [place, setPlace] = useState(null)
+  const [itineraries, setIt] = useState(null)
+
   useEffect(() => {
-    fetch('http://localhost:3000/getRandPlace')
+    fetch('http://10.1.1.111:3001/place/home')
       .then(response => response.json())
-      .then(data => setLocations(data))
+      .then(data => setLocations(data.randomPlaces))
       .catch(error => console.log('Error fetching locations:', error));
   }, []);
 
@@ -41,6 +44,53 @@ const HomeScreen = () => {
     }
   };
 
+  const addToItinerary = (event, location) => {
+    event.stopPropagation();
+    console.log(location);
+
+    if (localStorage.token) {
+      fetch("http://owenhar1.asuscomm.com:3000/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "token": localStorage.token
+        })
+      }).then((res) => res.json()).then((data) => {
+        console.log(data)
+        if (data.status == "error") {
+          localStorage.token = ""
+          alert("Please login to complete this action")
+        } else {
+          fetch("http://owenhar1.asuscomm.com:3000/api/getItineraryList", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              "token": localStorage.token
+            })
+          }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            if (data.error) {
+              console.error(data)
+            } else {
+              setIt(data)
+              setPlace(location)
+            }
+          })
+
+        }
+      })
+
+    } else {
+      alert("Please login to complete this action")
+    }
+
+
+  }
+
 
   return (
     <div className="container">
@@ -59,12 +109,13 @@ const HomeScreen = () => {
             onLocationSelect={setSelectedLocation}
             onToggleFavorite={toggleFavorite}
           />
+
         ))}
       </div>
       {selectedLocation && (
         <div className="modal-backdrop">
           <div className="modal">
-            <img src={selectedLocation.image || EZTravelLogo} alt="Location" />
+            <img src={selectedLocation.pictureURL || EZTravelLogo} alt="Location" style={{display: "block", width: "300px"}} />
             <h3>{selectedLocation.name}</h3>
             <p>Price: ${selectedLocation.price}</p>
             <p>Rating: {selectedLocation.rating}</p>
@@ -73,6 +124,47 @@ const HomeScreen = () => {
             <button onClick={(e) => { e.stopPropagation(); toggleFavorite(selectedLocation.name); }} className="favorite-btn">
               {selectedLocation.isFavorited ? <FavoriteIcon style={{ color: '#F25C5C' }} /> : <FavoriteBorderIcon style={{ color: 'black' }} />}
             </button>
+          </div>
+        </div>
+
+      )}
+      {place && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h3>{place.name}</h3>
+            <p>Select an Itinerary to add to:</p>
+            {itineraries.map((it) => (
+              <Button
+                type="item"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, backgroundColor: '#2484BF' }}
+                style={{ backgroundColor: '#2484BF' }}
+                onClick={() => {
+                  fetch("http://owenhar1.asuscomm.com:3000/api/addPlace", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      "token": localStorage.token,
+                      "id": it._id,
+                      "place": place._id
+                    })
+                  }).then((res) => res.json()).then((data) => {
+                    console.log(data)
+                    if (data.error) {
+                      console.error("Failed to create item")
+                    } else {
+                      setIt()
+                      setPlace()
+                    }
+                  })
+                }}
+              >
+                {it.title}
+              </Button>
+            ))}
           </div>
         </div>
       )}

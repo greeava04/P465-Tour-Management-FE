@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,11 +8,19 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Alert from '@mui/material/Alert';
+import GoogleIcon from '@mui/icons-material/Google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SignInWithGoogleLogo from '../images/SIgnInWithGoogle.png'
+import Divider from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
 import LoginNavComponent from '../util/LoginNavComponent';
 
 export function Copyright(props) {
@@ -36,6 +44,37 @@ export function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleGoogleOAuthSubmit = async (event) => {
+    console.log("Initiate Google OAuth Process")
+  }
+
+  const handleOTPSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const formJson = Object.fromEntries(formData.entries());
+    const otp = formJson.otp;
+    const response = await fetch("http://owenhar1.asuscomm.com:3000/verifyotp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({otpCode : otp, token: localStorage.tempToken})
+    })
+    const json = await response.json();
+    if (json.error) {
+      setError('Incorrect OTP entered');
+    }
+    if (json.message) {
+      localStorage.token = json.token;
+      setOpen(false)
+      localStorage.status=""
+      localStorage.tempToken=""
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -51,15 +90,25 @@ export default function SignIn() {
       body: JSON.stringify(login)
     })
     const json = await response.json();
+    localStorage.tempToken = json.token
     if (json.error) {
       alert("Username/Password combo incorrect")
     }
-    console.log(json)
     if (json.message) {
-      localStorage.token = json.token;
+      const response = await fetch("http://owenhar1.asuscomm.com:3000/sendotp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: localStorage.tempToken })
+      })
+      const res = await response.json();
+      localStorage.status = res.status;
+      setOpen(true);
     }
-    window.location.reload();
+    // window.location.reload();
   };
+
   let user = {
     "username": "",
     "password": ""
@@ -82,6 +131,44 @@ export default function SignIn() {
     let json = await response.json();
     console.log(json)
     user = json;
+  }
+  if(localStorage.status) {
+    return (
+      <Dialog
+        open={open}
+        disableBackdropClick
+        PaperProps={{
+          component: 'form',
+          onSubmit: handleOTPSubmit,
+        }}
+      >
+        <DialogTitle>Verification Initiated</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please provide the One-Time Password (OTP) sent to you on your registered email in order to authenticate you into our system.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="otp"
+            name="otp"
+            label="OTP"
+            fullWidth
+            variant="standard"
+            inputProps={{
+              inputMode: 'numeric',
+              pattern: '[0-9]*',
+              maxLength: 6
+            }}
+          />
+          {error && <Alert severity="error">{error}</Alert>}
+        </DialogContent>
+        <DialogActions>
+          <Button type="submit">Submit</Button>
+        </DialogActions>
+      </Dialog>
+    );
   }
   if (localStorage.token) {
     verify(localStorage.token);
@@ -187,8 +274,16 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+            <div style={{ margin: '20px 0' }}>
+              <Divider>
+                <Chip label="OR" size="small" />
+              </Divider>
+            </div>
             <Box style={{ "padding": '1em', "justify-content": "center", "display": "flex", "gap": "10px" }}>
-              <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton>
+              {/* <SignInButton image={SignInWithGoogleLogo} link="https://google.com"></SignInButton> */}
+              <Button onClick={handleGoogleOAuthSubmit} variant="outlined" startIcon={<GoogleIcon />}>
+                Continue with google
+              </Button>
             </Box>
           </Box>
         </Box>
@@ -196,13 +291,4 @@ export default function SignIn() {
       </Container>
     </ThemeProvider>
   );
-}
-
-
-export function SignInButton(props) {
-  return (
-    <a href={props.link}>
-      <img src={props.image} alt="Sign in with google button" />
-    </a>
-  )
 }
