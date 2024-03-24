@@ -4,6 +4,7 @@ import EZTravelLogo from '../images/EZTravelLogo.png';
 import SearchComponent from '../util/SearchComponent';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import TileComponent from '../util/TileComponent';
 import Button from '@mui/material/Button';
 
 const HomeScreen = () => {
@@ -102,21 +103,13 @@ const HomeScreen = () => {
       </div>
       <div className="grid-container">
         {locations.map((location, index) => (
-          <div key={index} className="grid-item" onClick={() => setSelectedLocation(location)}>
-            <img src={location.pictureURL || EZTravelLogo} alt="Location"/>
-            <div className="grid-text">
-              <h3>{location.name}</h3>
-              <p>Price: ${location.price}</p>
-              <p>Rating: {location.rating}</p>
-              <button onClick={(e) => { e.stopPropagation(); toggleFavorite(location.name); }} className="grid-favorite-btn">
-                {location.isFavorited ? <FavoriteIcon style={{ color: '#F25C5C' }} /> : <FavoriteBorderIcon style={{ color: 'black' }} />}
-              </button>
-              <button onClick={(event) => addToItinerary(event, location)} className="grid-add-btn">
-                {location.isFavorited ? <FavoriteIcon style={{ color: '#F25C5C' }} /> : <FavoriteBorderIcon style={{ color: 'black' }} />}
-              </button>
-            </div>
+          <TileComponent
+            key={index}
+            location={location}
+            onLocationSelect={setSelectedLocation}
+            onToggleFavorite={toggleFavorite}
+          />
 
-          </div>
         ))}
       </div>
       {selectedLocation && (
