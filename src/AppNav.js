@@ -9,6 +9,8 @@ import Hotels from './screens/Hotels'
 import Restaurants from './screens/Restaurants'
 import Activities from './screens/Activities'
 import Itinerary from './screens/Itinerary';
+import Convert from './screens/Convert';
+import SharedItinerary from './screens/SharedItinerary'
 
 function AppNav() {
   return (
@@ -23,7 +25,9 @@ function AppNav() {
       <Route path="/Hotels" element={<Hotels />} />
       <Route path="/Restaurants" element={<Restaurants />} />
       <Route path="/Activities" element={<Activities />} />
-      <Route path="/Itinerary" element={<Itinerary />}/>
+      <Route path="/Itinerary" element={<Itinerary />} />
+      <Route path="/SharedItinerary" element={<SharedItinerary />} ></Route>
+      <Route path="/convert" element={<Convert></Convert>}></Route>
     </Routes>
 
   );

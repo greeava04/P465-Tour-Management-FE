@@ -4,7 +4,11 @@ import EZTravelLogo from '../images/EZTravelLogo.png';
 import SearchComponent from '../util/SearchComponent';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import TileComponent from '../util/TileComponent';
 import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 const HomeScreen = () => {
   const [locations, setLocations] = useState([
@@ -90,6 +94,8 @@ const HomeScreen = () => {
 
   }
 
+  const [value, setValue] = useState(dayjs())
+
 
   return (
     <div className="container">
@@ -97,26 +103,20 @@ const HomeScreen = () => {
       <div className="sidebar">
         <div className="filters"></div>
         <div className="search">
-          <SearchComponent />
+          <SearchComponent setLocations={setLocations}/>
         </div>
       </div>
       <div className="grid-container">
         {locations.map((location, index) => (
-          <div key={index} className="grid-item" onClick={() => setSelectedLocation(location)}>
-            <img src={location.pictureURL || EZTravelLogo} alt="Location"/>
-            <div className="grid-text">
-              <h3>{location.name}</h3>
-              <p>Price: ${location.price}</p>
-              <p>Rating: {location.rating}</p>
-              <button onClick={(e) => { e.stopPropagation(); toggleFavorite(location.name); }} className="grid-favorite-btn">
-                {location.isFavorited ? <FavoriteIcon style={{ color: '#F25C5C' }} /> : <FavoriteBorderIcon style={{ color: 'black' }} />}
-              </button>
-              <button onClick={(event) => addToItinerary(event, location)} className="grid-add-btn">
-                {location.isFavorited ? <FavoriteIcon style={{ color: '#F25C5C' }} /> : <FavoriteBorderIcon style={{ color: 'black' }} />}
-              </button>
-            </div>
+          <TileComponent
+            key={index}
+            location={location}
+            onLocationSelect={setSelectedLocation}
+            onToggleFavorite={toggleFavorite}
+            addToItinerary={addToItinerary}
 
-          </div>
+          />
+
         ))}
       </div>
       {selectedLocation && (
@@ -139,6 +139,11 @@ const HomeScreen = () => {
         <div className="modal-backdrop">
           <div className="modal">
             <h3>{place.name}</h3>
+            <DateTimePicker
+            id="datePicker"
+            value={value}
+            onChange={setValue}
+            ></DateTimePicker>
             <p>Select an Itinerary to add to:</p>
             {itineraries.map((it) => (
               <Button
@@ -156,7 +161,8 @@ const HomeScreen = () => {
                     body: JSON.stringify({
                       "token": localStorage.token,
                       "id": it._id,
-                      "place": place._id
+                      "place": place._id,
+                      "time_start": value.unix()
                     })
                   }).then((res) => res.json()).then((data) => {
                     console.log(data)
