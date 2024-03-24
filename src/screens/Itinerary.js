@@ -4,15 +4,12 @@ import EZTravelLogo from '../images/EZTravelLogo.png'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import dayjs from "dayjs";
+import { DateTimePicker } from '@mui/x-date-pickers';
+
 
 function Itinerary() {
   const defaultTheme = createTheme();
@@ -95,10 +92,14 @@ function Itinerary() {
   }
 
   const Itinerary = () => {
-    const item = selected
+    let item = selected
 
     const [places, setPlaces] = useState([])
     const [selectedLocation, setSelectedLocation] = useState(null);
+    const [timeStart, setTimeStart] = useState(dayjs());
+    const [timeEnd, setTimeEnd] = useState();
+
+
 
     let tempPlaces = []
 
@@ -106,9 +107,16 @@ function Itinerary() {
       const fetchPlaces = async () => {
         const placesArray = await Promise.all(
           item.destinations.map(async (dest) => {
+            console.log(dest.time_start);
             try {
-              const response = await fetch(`http://10.1.1.111:3001/places/${dest}`);
+              console.log(dest)
+              const response = await fetch(`http://10.1.1.111:3001/places/${dest.place}`);
               const data = await response.json();
+              console.log(data)
+              data.place.time_start = dest.time_start;
+              if (dest.time_end) {
+                data.place.time_end = dest.time_end;
+              }
               return data.place;
             } catch (error) {
               console.error(error);
@@ -116,8 +124,9 @@ function Itinerary() {
             }
           })
         );
-
-        setPlaces(placesArray.filter((place) => place !== null));
+        // console.log(placesArray);
+        let filtered = placesArray.filter((place) => place !== null);
+        setPlaces(filtered.toSorted((a, b) => a.time_start - b.time_start));
       }
 
       fetchPlaces();
@@ -171,24 +180,121 @@ function Itinerary() {
 
     const activities = item.activities.map((item) => {
       return (
-        <li>{item}</li>
+        <li>{item.activity}</li>
       )
     })
 
 
-
-    const placesRender = places.map((place) => {
+    const commentsRender = item.comments.map((comment) => {
+      console.error(comment);
       return (
-        <li onClick={(event) => {
-          event.preventDefault();
-          setSelectedLocation(place)
-        }}>{place.name}</li>
+        <div class="comment">
+          <div class="username">
+            <b>{comment.username}</b>
+          </div>
+          <div class="body">
+            {comment.body}
+          </div>
+        </div>
+      );
+    })
+
+
+
+    const placesRender = places.map((location, index) => {
+      return (
+        <div key={index} className="list-item" onClick={() => {
+          setSelectedLocation(location)
+          setTimeStart(dayjs.unix(location.time_start));
+          if (location.time_end) setTimeEnd(dayjs.unix(location.time_end))
+          }}>
+          <img src={location.pictureURL || EZTravelLogo} alt="Location" class="itineraryPicture" />
+          <div className="list-text">
+            <h3>{location.name}</h3>
+            {/* <p>Price: ${location.price}</p> */}
+            <p>Rating: {location.rating}</p>
+          </div>
+          <div class="list-time">
+            <p>Arrival Time:</p>
+            <p>{dayjs.unix(location.time_start).format('L')}</p>
+            <p>{dayjs.unix(location.time_start).format('LT')}</p>
+          </div>
+
+        </div>
       )
     })
 
     const handleClose = () => {
       setSelectedLocation(null);
     };
+
+
+    const handlePlaceRemove = (event) => {
+      console.log("deleting")
+      fetch("http://owenhar1.asuscomm.com:3000/api/deletePlace", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "token": localStorage.token,
+          "id": selected._id,
+          "place": selectedLocation._id
+        })
+      }).then((res) => res.json())
+        .then((data) => {
+          setSelectedLocation(null);
+          setSelect(data);
+          item = selected;
+        })
+    }
+
+    const handleSubmit = (event) => {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget);
+      console.log(data)
+      let dataSend = {
+        comment: data.get('body'),
+        token: localStorage.token,
+        itineraryId: item._id
+      };
+
+      console.log(dataSend)
+
+      fetch('http://owenhar1.asuscomm.com:3000/api/addComment', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataSend)
+      }).then((res) => res.json())
+        .then(data => {
+          setSelect(data);
+          item = selected;
+        })
+    }
+
+    const handleTimeChange = () => {
+      const dataSend = {
+        "token": localStorage.token,
+        "id": item._id,
+        "place": selectedLocation._id
+      }
+      if (timeStart) dataSend.time_start = timeStart.unix();
+      if (timeEnd) dataSend.time_end = timeEnd.unix();
+      fetch('http://owenhar1.asuscomm.com:3000/api/updatePlaceTiming', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataSend)
+      }).then((res) => res.json())
+        .then(data => {
+          setSelectedLocation(null);
+          setSelect(data);
+          item = selected;
+        })
+    }
 
     // Here we will connect with the place db and get the places.
     return (
@@ -229,6 +335,43 @@ function Itinerary() {
               <ul>
                 {placesRender}
               </ul>
+              <div class="comments">
+                {commentsRender}
+              </div>
+              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="body"
+                  label="Comment"
+                  name="body"
+                  autoFocus
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2, backgroundColor: '#2484BF' }}
+                  style={{ backgroundColor: '#2484BF' }}
+                >
+                  Send Comment
+                </Button>
+              </Box>
+
+              <Button
+                type="delete"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, backgroundColor: '#2484BF' }}
+                style={{ backgroundColor: '#2484BF' }}
+                onClick={() => {
+                  navigator.clipboard.writeText(`http://${window.location.host}/SharedItinerary?id=${item._id}`)
+                }}
+              >
+                Copy Share Link
+              </Button>
               <Button
                 type="delete"
                 fullWidth
@@ -262,8 +405,34 @@ function Itinerary() {
                   <p>Price: ${selectedLocation.price}</p>
                   <p>Rating: {selectedLocation.rating}</p>
                   <p>Description: {selectedLocation.description}</p>
+                  <p>Arrival Time: {dayjs.unix(selectedLocation.time_start).toString()}</p>
+                  { selectedLocation.time_end ? (
+                    <>
+                    <p>Departure Time: {dayjs.unix(selectedLocation.time_end).toString()}</p>
+                    <p>Arrival Time:</p>
+                    </>
+                  ) : (<></>)}
                   <button onClick={handleClose} className="close-btn">X</button>
-                  <Button>Remove</Button>
+                  <div>
+                    
+                    <DateTimePicker
+                      value={timeStart}
+                      onChange={setTimeStart}
+                    />
+                  </div>
+                  <div>
+                    <p>Departure Time:</p>
+                    <DateTimePicker
+                      value={timeEnd}
+                      onChange={setTimeEnd}
+                    />
+                  </div>
+                  <div>
+                    <Button onClick={handleTimeChange}>Set Times</Button>
+                  </div>
+                  <div>
+                    <Button onClick={handlePlaceRemove}>Remove</Button>
+                  </div>
                 </div>
               </div>
 

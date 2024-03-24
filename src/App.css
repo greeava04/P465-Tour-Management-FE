@@ -95,6 +95,32 @@
   margin-bottom: 10px; 
 }
 
+.list-item {
+  border: 1px solid black;
+  padding: 10px; 
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.list-item img {
+  width: 35%;
+}
+
+.list-text {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.list-time {
+  
+}
+
 
 .grid-item h3, .grid-item p {
   margin: 5px 0; 
@@ -120,7 +146,38 @@
   background-position: center;
   height: 300px;
   width: 100%;
+}
 
+.box {
+  display: inline-block;
+  position: relative;
+}
+
+div.popup {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 0px;
+  width: 250px;
+  background-color: white;
+  z-index: 100;
+}
+
+div.popup .item {
+  text-align: center;
+  padding: 0.5em;
+  margin: 0 auto;
+  border: 2px solid grey;
+
+
+}
+
+div.popup .item:hover {
+  background-color: lightblue;
+}
+
+div.focus {
+  display: block;
 }
 /* Overlay Styling */
 .modal-backdrop {
@@ -168,4 +225,39 @@
   width: 30px; /* Adjust as needed */
   height: 30px; /* Adjust as needed */
   transition: all 0.3s ease; /* Smooth transition for color change */
+}
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.row * {
+  flex: 1 1 100px;
+  height: 50px;
+}
+
+#outputCurrency {
+  border: 2px solid grey;
+  border-radius: 5px;
+  text-align: center;
+  /* padding: 10px 0; */
+  vertical-align: middle;
+  line-height: 50px;
+}
+
+.comment{
+  border: 1px solid grey;
+  width: 500px;
+  min-width: 25%;
+  margin: 10px 0;
+
+
+}
+
+.comment .username {
+  border-bottom: 1px solid black;
 }

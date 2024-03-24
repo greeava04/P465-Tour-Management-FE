@@ -14,12 +14,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import EZTravelLogo from '../images/EZTravelLogo.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import CurrencyConverter from './CurrencyConverter';
 
 
 function AppBarComponent() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const pages = ['Hotels', 'Flights', 'Restaurants', 'Activities', 'Recommendations', 'Itinerary'];
+  const pages = ['Hotels', 'Flights', 'Restaurants', 'Activities', 'Recommendations', 'Itinerary', 'Convert'];
   const settings = ['Profile', 'Account', 'My Itinerary', 'Logout'];
   const navigate = useNavigate();
   const location = useLocation();
