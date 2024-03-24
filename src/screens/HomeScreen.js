@@ -4,6 +4,7 @@ import EZTravelLogo from '../images/EZTravelLogo.png';
 import SearchComponent from '../util/SearchComponent';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import TileComponent from '../util/TileComponent';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { DateTimePicker } from '@mui/x-date-pickers';
@@ -114,6 +115,7 @@ const HomeScreen = () => {
             onLocationSelect={setSelectedLocation}
             onToggleFavorite={toggleFavorite}
             addToItinerary={addToItinerary}
+
           />
 
         ))}
