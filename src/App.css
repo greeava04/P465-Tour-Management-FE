@@ -1,11 +1,24 @@
 /* Color codes: #F22E62 #2484BF #A2F2F2 #F2845C #F25C5C */
 
+body {
+  margin: 0;
+  padding: 0;
+  height: 1000px;
+}
 
 .App {
   text-align: center;
   display: grid;
   grid-template-columns: 1fr 4fr; /* 1/5th for sidebar, 4/5ths for content */
   gap: 10px; /* Adjusts the space between the sidebar and the grid container */
+}
+
+.footer {
+  background-color: '#2484BF';
+    display: flex;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
 .sidebar {
