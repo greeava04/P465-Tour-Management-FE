@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import TileComponent from '../util/TileComponent';
 
 const HomeScreen = () => {
   const [locations, setLocations] = useState([
